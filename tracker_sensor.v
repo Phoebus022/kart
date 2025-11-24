@@ -28,6 +28,7 @@ module tracker_sensor(clk, reset, left_track, right_track, mid_track, state);
     clock_divider #(16) clk_div_inst(.clk(clk), .clk_div(ms_clk));
 
     //recovery system
+    //如果過了3000ms(3s)還沒找到線，就進入recovery模式
     reg [11:0] recovery_cnt;
     always @(posedge ms_clk or posedge reset) begin
         if (reset) begin
@@ -54,7 +55,7 @@ module tracker_sensor(clk, reset, left_track, right_track, mid_track, state);
 
             //find the direction
             if (dir == 3'b111) begin
-                if(recovery_cnt >= 11'd100) begin
+                if(recovery_cnt >= 12'd3000) begin
                     casez  (last_dir)
                         3'b0??:  state <= BACKLEFT;
                         3'b??0:  state <= BACKRIGHT;

@@ -18,8 +18,10 @@ module lab6_advanced(
     output wire [3:0] DIGIT,
     output wire [6:0] DISPLAY
 );
-    // We have connected the motor and sonic_top modules in the template file for you.
-    // TODO: Control the motors with the information you get from ultrasonic sensor and 3-way track sensor.
+    // TODO: track_sensor.v, motor.v
+    //motor.v的部分可以調整速度，要把輪子調成平衡狀態(應該調完了)
+    //track_sensor.v的部分可以調整追蹤邏輯，這是主要要修改的邏輯
+    //其他模組應該都做完了
     wire [2:0] mode;
     motor A(
         .clk(clk),
@@ -70,12 +72,13 @@ module lab6_advanced(
                     else state <= IDLE;
                 end
                 GO: begin
-                    if(distance < 20) state <= STOP;
-                    else state <= GO;
+                    //if(distance < 20) state <= STOP;
+                    //else state <= GO;
+                    state <= GO;
                 end
                 STOP: begin
                     if(distance >= 20) state <= GO;
-                    else state <= STOP;
+                    //else state <= STOP;
                 end
             endcase
         end
@@ -101,7 +104,7 @@ module lab6_advanced(
         end else begin
             LED[15:13] <= {right_track, mid_track, left_track};
             LED[11:8] <= {IN1, IN2, IN3, IN4};
-            value <= {4'b1111, {1'b0, mode}, 4'b1111, {2'b0, state}};
+            value <= {{1'b0, mode}, {2'b0, state}, 4'b1111, 4'd2};
         end
     end
 

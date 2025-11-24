@@ -18,7 +18,7 @@ module motor(
 
     assign pwm = {left_pwm,right_pwm};
 
-    // TODO: Trace the remaining code in motor.v and control the speed and direction of the two motors
+    // TODO: control the speed
     always @(posedge clk or posedge rst) begin
         if (rst) begin
             left_motor <= 10'd0;
@@ -30,16 +30,16 @@ module motor(
                     right_motor <= 10'd0;
                 end
                 3'b001: begin //forward
-                    left_motor <= 10'd800;
-                    right_motor <= 10'd780;
+                    left_motor <= 10'd200;
+                    right_motor <= 10'd200;
                 end
                 3'b?10: begin //left
-                    left_motor <= 10'd750;
-                    right_motor <= 10'd800;
+                    left_motor <= 10'd150;
+                    right_motor <= 10'd200;
                 end
                 3'b?11: begin //right
-                    left_motor <= 10'd800;
-                    right_motor <= 10'd750;
+                    left_motor <= 10'd200;
+                    right_motor <= 10'd150;
                 end
                 default: begin
                     left_motor <= 10'd0;

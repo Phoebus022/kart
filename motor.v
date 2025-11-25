@@ -24,22 +24,22 @@ module motor(
             left_motor <= 10'd0;
             right_motor <= 10'd0;
         end else begin
-            casez  (mode)
-                3'b000: begin //stop
+            casez  (mode[1:0])
+                2'b00: begin //stop
                     left_motor <= 10'd0;
                     right_motor <= 10'd0;
                 end
-                3'b001: begin //forward
-                    left_motor <= 10'd200;
-                    right_motor <= 10'd200;
+                2'b01: begin //forward
+                    left_motor <= 10'd750;
+                    right_motor <= 10'd730;
                 end
-                3'b?10: begin //left
-                    left_motor <= 10'd150;
-                    right_motor <= 10'd200;
+                2'b10: begin //left
+                    left_motor <= 10'd650;
+                    right_motor <= 10'd710;
                 end
-                3'b?11: begin //right
-                    left_motor <= 10'd200;
-                    right_motor <= 10'd150;
+                2'b11: begin //right
+                    left_motor <= 10'd730;
+                    right_motor <= 10'd0;
                 end
                 default: begin
                     left_motor <= 10'd0;

@@ -72,13 +72,12 @@ module lab6_advanced(
                     else state <= IDLE;
                 end
                 GO: begin
-                    //if(distance < 20) state <= STOP;
-                    //else state <= GO;
-                    state <= GO;
+                    if(distance < 20) state <= STOP;
+                    else state <= GO;
                 end
                 STOP: begin
                     if(distance >= 20) state <= GO;
-                    //else state <= STOP;
+                    else state <= STOP;
                 end
             endcase
         end
@@ -104,7 +103,7 @@ module lab6_advanced(
         end else begin
             LED[15:13] <= {right_track, mid_track, left_track};
             LED[11:8] <= {IN1, IN2, IN3, IN4};
-            value <= {{1'b0, mode}, {2'b0, state}, 4'b1111, 4'd2};
+            value <= {{1'b0, mode}, {2'b0, state}, 4'b1111, 4'd4};
         end
     end
 
